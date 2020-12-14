@@ -21,6 +21,7 @@ function askInputLength() {
 function generatePassword() {
 
   var includedCharacters = '';
+
   askInputLength();
   console.log(inputLength);
   //If user enters something other than a number between 8 and 128, alert user to select again
@@ -51,7 +52,6 @@ function generatePassword() {
       console.log(includedCharacters);
     }
 
-
     //generate password based on criteria set by user
 
     for (var i = 0; i < inputLength; i++) {
@@ -62,6 +62,7 @@ function generatePassword() {
   }
   ;
   return (generatedPassword);
+
 };
 
 document.getElementById("password").innerHTML = generatedPassword
@@ -74,6 +75,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+  generatedPassword = '';
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
