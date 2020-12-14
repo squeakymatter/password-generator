@@ -1,53 +1,72 @@
 // Assignment code here
 
-// When button is clicked (onclick Event), prompt for password length:
-//"How many characters would you like your password to contain? 
-
-var askPasswordLength = function() {
-  prompt("How many characters would you like your passwor to contain?");
-}
-//If user enters number below 8 characters, or more than 128 characters, alert user to select again
-//
-
-// store user response to password length in local storage
-
-// prompt user to  for special chracters: "Click OK to include special characters"
-var askSpecialChar = function() {
-  prompt("Click OK to include special characters")
-
-  var specialCharacters = 
-}
-
-var specialChar = [~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/]
-//Don't include special characters if Cancel is selected
-//store user response
-//
+//define characters allowed sets
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var lowerCase = "abcdefghijklmnopqrstuvwxyz";
+var numbers = "0123456789";
+var specialCharacters = "!@#$%^&*()_+";
+var inputLength;
+var generatedPassword = '';
 
 
-//prompt user to confirm numbers: "Click OK to include numbers"
-//don't include numbers if Cancel is clicked
-var askNumbers = function() {
-  prompt("Click OK to include numbers");
 
+function askInputLength() {
+  //ask user how many characters to include in password
+  inputLength = parseInt(prompt("How many characters should your password contain? Enter a number between" +
+      " 8" +
+      " and 128."));
 
 }
 
-//prompt user to confirm uppercase characters: "Click OK to include uppercase letters"
-//don't include uppercase if Cancel is Clicked
+function generatePassword() {
 
-var askUpperCase = function() {
-  prompt("Click OK to include uppercase letters");
-}
+  var includedCharacters = '';
+  askInputLength();
+  console.log(inputLength);
+  //If user enters something other than a number between 8 and 128, alert user to select again
+  if (8 > inputLength || inputLength > 128 || Number.isNaN(inputLength)) {
+    alert("Please select a number between 8 and 128");
+    askInputLength();
+  } else {
+    var includeLowerCase = confirm("Click `OK` to include or `Cancel` to exclude lowercase characters.");
+    var includeUpperCase = confirm("Click `OK` to include or `Cancel` to exclude UPPERCASE characters");
+    var includeNumbers = confirm("Click `OK` to include or `Cancel` to exclude numbers");
+    var includeSpecialCharacters = ("Click `OK` to include or `Cancel` to exclude lowercase characters");
+
+// append to includedCharacters if confirmed
+    if (includeLowerCase) {
+      includedCharacters += lowerCase;
+      console.log(includedCharacters);
+    }
+    if (includeUpperCase) {
+      includedCharacters += upperCase;
+      console.log(includedCharacters);
+    }
+    if (includeNumbers) {
+      includedCharacters += numbers;
+      console.log(includedCharacters);
+    }
+    if (includeSpecialCharacters) {
+      includedCharacters += specialCharacters;
+      console.log(includedCharacters);
+    }
 
 
-//after all prompts are answered, generate password that matches selected criteria
-//
+    //generate password based on criteria set by user
 
-//show password in alert written on page.
+    for (var i = 0; i < inputLength; i++) {
+      var random = Math.floor(Math.random() * includedCharacters.length);
+      generatedPassword += includedCharacters[random];
+    }
+    console.log(generatedPassword);
+  }
+  ;
+  return (generatedPassword);
+};
 
+document.getElementById("password").innerHTML = generatedPassword
 
-
-
+/******* FUNCTIONS PROVIDED IN ASSIGNMENT *****/
 
 
 // Get references to the #generate element
@@ -57,7 +76,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 
 }
