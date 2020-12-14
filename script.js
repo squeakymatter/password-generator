@@ -19,13 +19,15 @@ function askInputLength() {
 function generatePassword() {
 
     var includedCharacters = '';
-
     askInputLength();
+
     //If user enters something other than a number between 8 and 128, alert user to select again
-    if (8 > inputLength || inputLength > 128 || Number.isNaN(inputLength)) {
-        alert("Please select a number between 8 and 128");
-        askInputLength();
-    } else {
+
+    while (8 > inputLength || inputLength > 128 || Number.isNaN(inputLength) || inputLength === "") {
+            alert("Please enter a number between 8 and 128");
+            askInputLength();
+        }
+
         var includeLowerCase = confirm("Click `OK` to include or `Cancel` to exclude lowercase characters.");
         var includeUpperCase = confirm("Click `OK` to include or `Cancel` to exclude UPPERCASE characters");
         var includeNumbers = confirm("Click `OK` to include or `Cancel` to exclude numbers");
@@ -50,7 +52,7 @@ function generatePassword() {
         for (var i = 0; i < inputLength; i++) {
             var random = Math.floor(Math.random() * includedCharacters.length);
             generatedPassword += includedCharacters[random];
-        }
+        
     }
 
     return (generatedPassword);
